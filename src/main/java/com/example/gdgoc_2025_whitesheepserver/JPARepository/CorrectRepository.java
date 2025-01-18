@@ -1,7 +1,6 @@
 package com.example.gdgoc_2025_whitesheepserver.JPARepository;
 
-import com.example.gdgoc_2025_whitesheepserver.dto.CorrectTypeCountDTO;
-import com.example.gdgoc_2025_whitesheepserver.entity.CorrectList;
+import com.example.gdgoc_2025_whitesheepserver.entity.Correct;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface CorrectListRepository extends JpaRepository<CorrectList, String> {
+public interface CorrectRepository extends JpaRepository<Correct, String> {
 
     @Query(value = """
         SELECT 
@@ -20,7 +19,7 @@ public interface CorrectListRepository extends JpaRepository<CorrectList, String
             SUM(CASE WHEN correcttype = 2 THEN 1 ELSE 0 END) * 2 +
             SUM(CASE WHEN correcttype = 3 THEN 1 ELSE 0 END) * 3 AS totalScore
         FROM 
-            correctlist
+            correct
         WHERE 
             id = :id AND correctdate = :correctdate
     """, nativeQuery = true)
@@ -32,7 +31,7 @@ public interface CorrectListRepository extends JpaRepository<CorrectList, String
             SUM(CASE WHEN correcttype = 2 THEN 1 ELSE 0 END) * 2 +
             SUM(CASE WHEN correcttype = 3 THEN 1 ELSE 0 END) * 3 AS totalScore
         FROM 
-            correctlist
+            correct
         WHERE 
             id = :id AND correctdate = CURRENT_DATE
     """, nativeQuery = true)
@@ -44,7 +43,7 @@ public interface CorrectListRepository extends JpaRepository<CorrectList, String
             SUM(CASE WHEN correcttype = 2 THEN 1 ELSE 0 END) * 2 +
             SUM(CASE WHEN correcttype = 3 THEN 1 ELSE 0 END) * 3 AS totalScore
         FROM 
-            correctlist
+            correct
         WHERE 
             id = :id AND YEARWEEK(correctdate, 1) = YEARWEEK(CURRENT_DATE, 1)
     """, nativeQuery = true)
@@ -56,7 +55,7 @@ public interface CorrectListRepository extends JpaRepository<CorrectList, String
             SUM(CASE WHEN correcttype = 2 THEN 1 ELSE 0 END) * 2 +
             SUM(CASE WHEN correcttype = 3 THEN 1 ELSE 0 END) * 3 AS totalScore
         FROM 
-            correctlist
+            correct
         WHERE 
             id = :id AND MONTH(correctdate) = MONTH(CURRENT_DATE) AND YEAR(correctdate) = YEAR(CURRENT_DATE)
     """, nativeQuery = true)
@@ -67,7 +66,7 @@ public interface CorrectListRepository extends JpaRepository<CorrectList, String
             "SUM(CASE WHEN correcttype = 1 THEN 1 ELSE 0 END) + " +
             "SUM(CASE WHEN correcttype = 2 THEN 2 ELSE 0 END) + " +
             "SUM(CASE WHEN correcttype = 3 THEN 3 ELSE 0 END) AS score " +
-            "FROM correctlist " +
+            "FROM correct " +
             "WHERE DATE(correctdate) = CURDATE() " +
             "GROUP BY id " +
             "ORDER BY score DESC", nativeQuery = true)
@@ -78,7 +77,7 @@ public interface CorrectListRepository extends JpaRepository<CorrectList, String
             "SUM(CASE WHEN correcttype = 1 THEN 1 ELSE 0 END) + " +
             "SUM(CASE WHEN correcttype = 2 THEN 2 ELSE 0 END) + " +
             "SUM(CASE WHEN correcttype = 3 THEN 3 ELSE 0 END) AS score " +
-            "FROM correctlist " +
+            "FROM correct " +
             "WHERE YEARWEEK(correctdate, 1) = YEARWEEK(CURDATE(), 1) " +
             "GROUP BY id " +
             "ORDER BY score DESC", nativeQuery = true)
@@ -89,7 +88,7 @@ public interface CorrectListRepository extends JpaRepository<CorrectList, String
             "SUM(CASE WHEN correcttype = 1 THEN 1 ELSE 0 END) + " +
             "SUM(CASE WHEN correcttype = 2 THEN 2 ELSE 0 END) + " +
             "SUM(CASE WHEN correcttype = 3 THEN 3 ELSE 0 END) AS score " +
-            "FROM correctlist " +
+            "FROM correct " +
             "WHERE YEAR(correctdate) = YEAR(CURDATE()) AND MONTH(correctdate) = MONTH(CURDATE()) " +
             "GROUP BY id " +
             "ORDER BY score DESC", nativeQuery = true)

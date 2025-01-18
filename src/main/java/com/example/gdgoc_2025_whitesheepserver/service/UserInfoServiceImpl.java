@@ -1,8 +1,7 @@
 package com.example.gdgoc_2025_whitesheepserver.service;
 
-import com.example.gdgoc_2025_whitesheepserver.JPARepository.CorrectListRepository;
+import com.example.gdgoc_2025_whitesheepserver.JPARepository.CorrectRepository;
 import com.example.gdgoc_2025_whitesheepserver.JPARepository.UserInfoRepository;
-import com.example.gdgoc_2025_whitesheepserver.dto.CorrectTypeCountDTO;
 import com.example.gdgoc_2025_whitesheepserver.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class UserInfoServiceImpl implements UserInfoService{
     private UserInfoRepository userInfoRepository;
 
     @Autowired
-    private CorrectListRepository correctListRepository;
+    private CorrectRepository correctRepository;
 
     @Override
     public List<UserInfo> getAllUserInfo() {
@@ -27,37 +26,37 @@ public class UserInfoServiceImpl implements UserInfoService{
 
     @Override
     public Integer getTotalScore(String id, LocalDate correctdate) {
-        return correctListRepository.findTotalScoreByIdAndDate(id, correctdate);
+        return correctRepository.findTotalScoreByIdAndDate(id, correctdate);
     }
 
     @Override
     public Integer getTodayScore(String id) {
-        return correctListRepository.findTodayScore(id);
+        return correctRepository.findTodayScore(id);
     }
 
     @Override
     public Integer getWeeklyScore(String id) {
-        return correctListRepository.findWeeklyScore(id);
+        return correctRepository.findWeeklyScore(id);
     }
 
     @Override
     public Integer getMonthlyScore(String id) {
-        return correctListRepository.findMonthlyScore(id);
+        return correctRepository.findMonthlyScore(id);
     }
 
     @Override
     public List<Map<String, Object>> getTodayScores() {
-        return correctListRepository.findTodayScores();
+        return correctRepository.findTodayScores();
     }
 
     @Override
     public List<Map<String, Object>> getWeeklyScores() {
-        return correctListRepository.findWeeklyScores();
+        return correctRepository.findWeeklyScores();
     }
 
     @Override
     public List<Map<String, Object>> getMonthlyScores() {
-        return correctListRepository.findMonthlyScores();
+        return correctRepository.findMonthlyScores();
     }
 
 }
