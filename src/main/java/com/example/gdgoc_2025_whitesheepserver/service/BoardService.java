@@ -57,7 +57,8 @@ public class BoardService {
         } else {
             question = chatgptService.getQuestionByUrl(board.getUrl(), levelType);
         }
-        Mission mission = missionRepository.save(new Mission(question.getCorrect_answer(), level));
+        String answerStr = question.getOptions().get(Integer.parseInt(question.getCorrect_answer()) - 1);
+        Mission mission = missionRepository.save(new Mission(answerStr, level));
         return new GetBoardMissionResponseDto(
                 mission.getId(),
                 board.getName(),
@@ -90,7 +91,7 @@ public class BoardService {
         Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(() -> new IllegalArgumentException("not found"));
         UserInfo user = userInfoRepository.findAll().getFirst();
-        if (mission.getAnswer().equals(answer)) {
+        if (mission.getAnswer().contains(answer)) {
             correctRepository.save(new Correct(mission.getCorrectType(), user.getId()));
         }
     }
