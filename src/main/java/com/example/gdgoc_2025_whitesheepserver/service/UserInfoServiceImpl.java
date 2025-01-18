@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService{
@@ -42,6 +43,21 @@ public class UserInfoServiceImpl implements UserInfoService{
     @Override
     public Integer getMonthlyScore(String id) {
         return correctListRepository.findMonthlyScore(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getTodayScores() {
+        return correctListRepository.findTodayScores();
+    }
+
+    @Override
+    public List<Map<String, Object>> getWeeklyScores() {
+        return correctListRepository.findWeeklyScores();
+    }
+
+    @Override
+    public List<Map<String, Object>> getMonthlyScores() {
+        return correctListRepository.findMonthlyScores();
     }
 
 }

@@ -5,6 +5,7 @@ import com.example.gdgoc_2025_whitesheepserver.entity.UserInfo;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface UserInfoService {
     List<UserInfo> getAllUserInfo();
@@ -16,4 +17,9 @@ public interface UserInfoService {
 
     Integer getMonthlyScore(String id);
 
+    List<Map<String, Object>> getTodayScores();
+
+    List<Map<String, Object>> getWeeklyScores();
+
+    List<Map<String, Object>> getMonthlyScores();
 }
